@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <!-- Meta Information about the document -->
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <head>
+    <!-- Link to the favicon for the website -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Meta tags for viewport configuration and mobile web-app compatibility -->
+    <meta name="viewport" content="user-scalable=0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Linking an external stylesheet for the page -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Including the QRCode.js library to generate QR codes -->
+    <script src="qrcode.min.js"></script>
+    <script>
+      // Dynamically adds a CSS file with a timestamp for cache busting
+      const linkElement = document.createElement("link");
+      linkElement.rel = "stylesheet";
+      linkElement.type = "text/css";
+      const timestamp = new Date().getTime();
+      const updatedCssUrl = `color.css?t=${timestamp}`; // Adds timestamp to the URL to avoid cache issues
+      linkElement.href = updatedCssUrl;
+      document.head.appendChild(linkElement);
+
+      // Function to open the popup modal
+
+      function openPopup() {
+        document.getElementById("popupModal").style.display = "block";
+      }
+      // Function to close the popup modal
+
+      function closePopup() {
+        document.getElementById("popupModal").style.display = "none";
+      }
+
+      // Function to dynamically generate the QR code
+      function generateQRCode() {
+        var qrText =
+          "05020100072nQw9nR6w5BQsB3d7RKS+T0Bc2jAaoz3PB9PeR4VZPAYBRtVrJcuPjn63p696f9qp8H9mKZf0o8Qm7OJ+9F/Rqsry3ilLVCFwV4tATWHdYAqFBnl76nCC29oaORN8M3DbjtDb2XGiEhEerCjF/0iEEZpXi7dClRrHiReCwzAxTRmVQzYa/E=";
+
+        // Generate QR code for the main page
+        new QRCode(document.getElementById("qrcode"), {
+          text: qrText, // URL or text to encode
+          width: 363, // Width of the QR code (in pixels)
+          height: 363, // Height of the QR code (in pixels)
+          colorDark: "#000000", // Dark color (black)
+          colorLight: "#ffffff", // Light color (white)
+          correctLevel: QRCode.CorrectLevel.L, // Error correction level (L for low)
+        });
+
+        // Generate QR code for the popup
+        var popupQRCodeElement = document.getElementById("popupQRCode");
+        popupQRCodeElement.innerHTML = ""; // Clear any existing QR code
+
+        // Create a new QR code for the popup
+        new QRCode(popupQRCodeElement, {
+          text: qrText, // Same QR code text
+          width: 490, // Width of the QR code (in pixels)
+          height: 490, // Height of the QR code (in pixels)
+          colorDark: "#000000", // Dark color (black)
+          colorLight: "#ffffff", // Light color (white)
+          correctLevel: QRCode.CorrectLevel.L, // Error correction level (L for low)
+        });
+      }
+
+      // Call the generateQRCode function when the page loads
+      window.onload = function () {
+        generateQRCode();
+      };
+    </script>
+  </head>
+  <body style="margin: 0">
+    <div class="container">
+      <div class="square">
+        <!-- Placeholder for displaying the current month, year, and "STUDENT" text -->
+        <div class="square-text" id="pass_month_year"></div>
+      </div>
+      <!-- QR code display area -->
+      <div class="qr-square">
+        <a href="#" onclick="openPopup(); return false;">
+          <!-- <img class="qr-code" src="your-qr-code-image.png" alt="QR Code"> -->
+          <!-- This will hold the generated QR code -->
+          <div id="qrcode"></div>
+        </a>
+        <!-- Hint for the user to tap for larger view -->
+        <div class="tap-to-enlarge">Tap to enlarge</div>
+      </div>
+    </div>
+    <!-- Label for the pass -->
+    <div class="bip">BUS INTERSTATE PASS</div>
+    <div class="rectangle">
+      <!-- Zone number, click to change zone -->
+      <div class="rectangle-text1" onclick="updateZoneText()">2</div>
+      <!-- Label for zones -->
+      <div class="rectangle-text2">ZONES</div>
+    </div>
+    <div class="bottom-container">
+      <!-- Current date and time -->
+      <div class="datetime" id="datetime"></div>
+      <div class="color-strip">
+        <div class="color-block red"></div>
+        <div class="color-block green"></div>
+        <div class="color-block blue"></div>
+      </div>
+      <!-- Countdown timer for expiration -->
+      <div class="expires-text">Expires in <span id="countdown"></span></div>
+      <img class="bottom-image" src="bottom.png" alt="Bottom Image" />
+
+      <!-- Popup modal that shows the larger QR code -->
+      <div
+        id="popupModal"
+        style="
+          position: fixed;
+          top: 19%;
+          left: 52%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          background-color: rgb(255, 255, 255);
+          border: 2px solid rgb(204, 204, 204);
+          box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+          padding: 20px 20px 20px 487px;
+          height: 142%;
+          display: none;
+        "
+      >
+        <!-- <img  onclick="closePopup()" src="your-qr-code-image.png" alt="QR Code" style="width: 50%;object-fit: contain;padding-top: 130%;margin-bottom: 65px;"> -->
+        <div
+          id="popupQRCode"
+          onclick="closePopup()"
+          style="
+            width: 50%;
+            object-fit: contain;
+            padding-top: 130%;
+            margin-bottom: 65px;
+          "
+        ></div>
+        <!-- Link to go back to the main screen -->
+        <a class="back-font">Tap to go back</a>
+      </div>
+    </div>
+    <script>
+      // Function to update the month and year on the page
+      function updateMonthAndYear() {
+        var currentDate = new Date();
+        var monthNames = [
+          "JAN",
+          "FEB",
+          "MAR",
+          "APR",
+          "MAY",
+          "JUN",
+          "JUL",
+          "AUG",
+          "SEP",
+          "OCT",
+          "NOV",
+          "DEC",
+        ];
+        var month = monthNames[currentDate.getMonth()]; // Get current month
+        var year = currentDate.getFullYear(); // Get current year
+        // var student = "STUDENT"; // Static label for student
+        // var content = month + "<br>" + year + "<br>" + student; // Combine them into a string
+        var content = month + "<br>" + year + "<br>"; // Combine them into a string
+        document.getElementById("pass_month_year").innerHTML = content; // Set the content in the element
+      }
+
+      // Function to update the countdown timer (until the start of the next month)
+      function updateCountdown() {
+        const countdown = document.getElementById("countdown");
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth();
+        const deadlineDate = new Date(
+          currentDate.getFullYear(),
+          currentMonth + 1,
+          1,
+          0,
+          0,
+          0
+        ); // Deadline is set for the start of next month
+
+        const timeRemaining = new Date(deadlineDate - currentDate);
+
+        const days = timeRemaining.getUTCDate() - 1;
+        const hours = timeRemaining.getUTCHours();
+        const minutes = timeRemaining.getUTCMinutes();
+        const seconds = timeRemaining.getUTCSeconds();
+
+        countdown.textContent = `${days.toString().padStart(2, "0")}:${hours
+          .toString()
+          .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+          .toString()
+          .padStart(2, "0")}`; // Display countdown in the format DD:HH:MM:SS
+      }
+
+      // Function to update the current date and time on the page
+      function updateDateTime() {
+        const datetime = document.getElementById("datetime");
+        const currentDate = new Date();
+        const options = {
+          weekday: "short",
+          month: "short",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        };
+        const dateTimeString = currentDate.toLocaleString("en-US", options);
+        datetime.textContent = dateTimeString.replace(" at", " "); // Format and display the current date and time
+      }
+      // Function to update the zone number when clicked
+      function updateZoneText() {
+        const zoneElement = document.querySelector(".rectangle-text1");
+        let currentZone = parseInt(zoneElement.textContent, 10); // Get current zone number
+        currentZone = currentZone === 9 ? 2 : currentZone + 1; // If zone is 9, reset to 2, else increment by 1
+        zoneElement.textContent = currentZone; // Update the zone number on the page
+      }
+
+      // Initial updates when the page loads
+      updateMonthAndYear();
+      updateCountdown();
+      updateDateTime();
+
+      // Update countdown and date-time every second
+      setInterval(updateCountdown, 1000);
+      setInterval(updateDateTime, 1000);
+    </script>
+  </body>
+</html>
