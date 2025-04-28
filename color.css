@@ -1,5 +1,7 @@
 :root {
+    /*  Pass color  */
     --first: #fc646b;
+    /*  strip colors */
     --stripone:#d68c51;
     --striptwo: #bb49ff;
     --stripthree: #f67ad5;
