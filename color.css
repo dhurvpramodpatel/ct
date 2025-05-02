@@ -1,11 +1,12 @@
 :root {
     /*  Pass color  */
-    --first: #f6c7cf;
+    --first: #3683f6;
     /*  strip colors */
-    --stripone:#e2747b;
-    --striptwo: #8f9a74;
-    --stripthree: #b8cea8;
+    --stripone:#35cd89;
+    --striptwo: #a38d90;
+    --stripthree: #c5aae8;
 }
 
-/* grey #a1a1a1  */
-/* light pink #f6c7cf  */
+/* French Blue #3683f6 */
+/* Dark Gray #a1a1a1  */
+/* Light Thulian Pink #f6c7cf  */
