@@ -1,10 +1,10 @@
 :root {
     /*  Pass color  */
-    --first: #ffdf36;
+    --first: #ffcbd7;
     /*  strip colors */
-    --stripone: #f9944e;
-    --striptwo: #a3ffeb;
-    --stripthree: #b9adb1;
+    --stripone: #cc2d70;
+    --striptwo: #41689f;
+    --stripthree: #b6fa83;
 }
 
 /* grayish-green #61ae63  */
